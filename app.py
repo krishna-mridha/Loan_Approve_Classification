@@ -89,6 +89,9 @@ def predict():
         # Loan Amount
         Loan_Amount = request.form['LoanAmount']
         Loan_Amount = np.float64(Loan_Amount)
+        Loan_Amount = Loan_Amount / 1000
+        loan_log = np.log(Loan_Amount)
+        loan_log = np.float64(loan_log)
 
         #Applicant Income
         Applicant_Income = request.form['ApplicantIncome']
@@ -128,7 +131,7 @@ def predict():
         my_prediction = model.predict([[
             Dependents,
             Credit_History,
-            Loan_Amount,
+            loan_log,
             Gender_Male,
             Married,
             Education,
@@ -140,7 +143,7 @@ def predict():
         Prob = model.predict_proba([[
             Dependents,
             Credit_History,
-            Loan_Amount,
+            loan_log,
             Gender_Male,
             Married,
             Education,
